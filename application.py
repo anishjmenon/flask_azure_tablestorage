@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = '9e5fa42d176d5b2b0924f825e127f1bf'
 
-table_service = TableService(account_name='cloudshell1131618896', account_key='6pakMCoUlI5Yy21jnRksZ2NXX0D7Nt5QnjFdC4HrnZQSHWVUzixR1/vezmmbfLCBDDb5yHobbQqx4FRhN6v2iQ==')
+table_service = TableService(account_name='cloudshell438197631', account_key='WWsdUOPbDtGr8DYDcbX3FtFF2gCNoTArCcufftxcKMmKjlrGYO8pLgrrfAUW+a48C7Do9oakdZvF9/NY35UNPw==')
 
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
@@ -92,5 +92,5 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
-# if __name__ == '__main__':
-#     app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)
