@@ -9,7 +9,6 @@ class LoginForm(FlaskForm):
     login = SubmitField('Login')
 
 class StockConfirmationForm(FlaskForm):
-    material = StringField('Material', validators=[DataRequired()])
-    # material = SelectField('Material', choices=[], coerce=int)
+    material = SelectField('Material', choices=[])
     quantity = IntegerField('Quantity', validators=[DataRequired(message='Please enter a number')])
     confirm = SubmitField('Confirm')

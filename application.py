@@ -39,11 +39,12 @@ class User:
 @login_required
 def home():
     stkform = StockConfirmationForm()
-    # stkform.material.choices = [(mat.material_num, mat.material_desc) for mat in Materialmast.query.all()]
+    mat_mast = table_service.query_entities('Materialmast')
+    stkform.material.choices = [(mat.material_num, mat.material_desc) for mat in mat_mast]
     if stkform.validate_on_submit():
         quantity = stkform.quantity.data
         material = stkform.material.data
-        mat_det = table_service.query_entities('Materialmast', filter="PartitionKey eq 'material' and material_desc eq '" +material+ "'").items[0]
+        mat_det = table_service.query_entities('Materialmast', filter="PartitionKey eq 'material' and material_num eq '" +material+ "'").items[0]
         mat_num = mat_det.material_num
 
         if quantity:
@@ -58,15 +59,11 @@ def home():
                     'quantity': quantity}
             table_service.insert_entity('Stock', task)
 
-            flash(f'Posted quantity {quantity} for material {material}', 'success')
-    #         # flash(f'Posted quantity {quantity} for material {material} by user {user_id}', 'success')
+            flash(f'Posted quantity {quantity} for material {mat_det.material_desc}', 'success')
             return redirect(url_for('home'))
     return render_template('home.html', title='Home', form=stkform)
 
-# @app.route("/", methods=['GET','POST'])
-@app.route("/")
-def index():
-    return "hi from index page"
+@app.route("/", methods=['GET','POST'])
 @app.route("/login", methods=['GET','POST'])
 def login():
     if current_user.is_authenticated:
